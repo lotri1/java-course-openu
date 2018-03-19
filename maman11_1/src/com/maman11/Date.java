@@ -4,7 +4,15 @@ public class Date {
     private int year;
 
     public Date(int day, int month, int year) {
-
+        if (day < 1 || day > 31 || month < 1 || month > 12 || year < 0 || year > 9999) {
+            this.day = 1;
+            this.month = 1;
+            this.year = 2000;
+        } else {
+            this.day = day;
+            this.month = month;
+            this.year = year;
+        }
     }
 
     public Date(Date other) {
@@ -27,6 +35,14 @@ public class Date {
         return day;
     }
 
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
     public void setDay(int dayToSet) {
         if (dayToSet < 1 || dayToSet > 31)
             day = 1;
@@ -34,19 +50,11 @@ public class Date {
             day = dayToSet;
     }
 
-    public int getMonth() {
-        return month;
-    }
-
     public void setMonth(int monthToSet) {
         if (monthToSet < 1 || monthToSet > 12)
             month = 1;
         else
             this.month = monthToSet;
-    }
-
-    public int getYear() {
-        return year;
     }
 
     public void setYear(int yearToSet) {
