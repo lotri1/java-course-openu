@@ -48,7 +48,28 @@ public class Group {
     }
 
     public String firstPerson() {
-        
+        if (personsCounter == 0)
+            return null;
+
+        Person retVal = personArr[0];
+
+        for (int i = 1; i < personsCounter; i++) {
+            int lastNameCompareResult = personArr[i].getLastName().compareTo(retVal.getLastName());
+
+            if (lastNameCompareResult < 0) {
+                retVal = personArr[i];
+            }
+
+            if (lastNameCompareResult == 0) {
+                int firstNameCompareResult = personArr[i].getFirstName().compareTo(retVal.getFirstName());
+
+                if (firstNameCompareResult < 0) {
+                    retVal = personArr[i];
+                }
+            }
+        }
+
+        return retVal.getFirstName();
     }
 
     public Person oldestPerson() {

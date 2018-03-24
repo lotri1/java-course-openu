@@ -7,17 +7,14 @@ public class Person {
     private Date dateOfBirth;
 
     public Person(String first, String last, long id, int d, int m, int y) {
-        this.firstName = first;
-        this.lastName = last;
-        this.id = id;
-        this.dateOfBirth = new Date(d, m, y);
+        setFirstName(first);
+        setLastName(last);
+        setId(id);
+        setDateOfBirth(d, m, y);
     }
 
     public Person(Person p) {
-        firstName = p.firstName;
-        lastName = p.lastName;
-        id = p.id;
-        dateOfBirth = new Date(p.dateOfBirth);
+        this(p.firstName, p.lastName, p.id, p.dateOfBirth.getDay(), p.dateOfBirth.getMonth(), p.dateOfBirth.getYear());
     }
 
     public String getFirstName() {

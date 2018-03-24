@@ -1,21 +1,103 @@
 package com.maman11;
 
+import static java.lang.System.out;
+
 public class Driver {
     public static void main(String[] args) {
         Group group = new Group();
+        Group emptyGroup = new Group();
 
-        group.addPerson(new Person("Shay", "Vaturi", 1, 28, 9, 1982));
-        group.addPerson(new Person("Tzipi", "Shavit", 99, 28, 9, 1982));
-        group.addPerson(new Person("Dudu", "Zar", 55, 29, 9, 1982));
-        group.addPerson(new Person("Uzi", "Hitman", 66, 28, 10, 1982));
-        group.addPerson(new Person("Yossi", "Cohen", 2, 3, 10, 1970));
-        group.addPerson(new Person("Moshe", "Sagee", 3, 2, 10, 1970));
-        group.addPerson(new Person("Yossi", "Cohen", 2, 3, 10, 1970));
+        printHeader("Adding people");
 
-        System.out.printf(group.toString());
+        addPerson(group, new Person("Shay", "Vaturi", 1, 28, 9, 1982));
+        addPerson(group, new Person("Tzipi", "Shavit", 2, 3, 10, 1970));
+        addPerson(group, new Person("Dudu", "Zar", 3, 2, 10, 1970));
 
-        System.out.println("Born in date 28/9/1982: " + group.bornInDate(new Date(28, 9, 1982)));
-        System.out.println("Born in month 10: " + group.bornInMonth(10));
-        System.out.println("Oldest person: " + group.oldestPerson());
+        printSmallHeader("Add same person twice");
+        Person person = new Person("Yossi", "Cohen", 4, 3, 10, 1970);
+        addPerson(group, person);
+        addPerson(group, new Person(person));
+        printEndSmallHeader();
+
+        printSmallHeader("Add persons with illegal day");
+        addPerson(group, new Person("Zeev", "Revach", 5, 0, 11, 1995));
+        addPerson(group, new Person("Uzi", "Hitman", 6, 32, 11, 1995));
+        printEndSmallHeader();
+
+        printSmallHeader("Add persons with illegal month");
+        addPerson(group, new Person("Yehoran", "Gaon", 7, 7, 0, 1995));
+        addPerson(group, new Person("Ilan", "Banay", 8, 8, 13, 1995));
+        printEndSmallHeader();
+
+        printSmallHeader("Add persons with illegal year");
+        addPerson(group, new Person("Evyatar", "Banay", 9, 2, 10, -1));
+        addPerson(group, new Person("Moshe", "Sagee", 10, 2, 10, 10000));
+        printEndSmallHeader();
+
+        printSmallHeader("Add person to full group");
+        addPerson(group, new Person("Yeahuda", "Barkan", 11, 2, 10, -1));
+        printEndSmallHeader();
+
+        printHeader("Done adding people");
+
+        printHeader("Print the group using the toString of the group:");
+        out.printf(group.toString());
+        printHeader("Done printing the group");
+
+        printHeader("Print empty group:");
+        out.printf(emptyGroup.toString());
+        printHeader("Done printing empty group");
+
+        printHeader("Print oldest person:");
+        printOldestPersonName("Oldest person: ",group);
+        printOldestPersonName("Oldest person of empty group: ", emptyGroup);
+        printHeader("Done printing oldest person");
+
+        printHeader("Print first name of first person:");
+        out.println("First person: " + group.firstPerson());
+        out.println("First person empty group: " + emptyGroup.firstPerson());
+        printHeader("Done printing first person");
+
+        printHeader("Born in date:");
+        out.println("Born in date 28/9/1982: " + group.bornInDate(new Date(28, 9, 1982)));
+        out.println("Born in date 1/1/2000: " + group.bornInDate(new Date(1, 1, 2000)));
+        out.println("Born in date 3/10/1970: " + group.bornInDate(new Date(3, 10, 1970)));
+        out.println("Born in date 1/1/2010: " + group.bornInDate(new Date(1, 1, 2010)));
+        out.println("Born in date 1/1/2010 in empty group: " + group.bornInDate(new Date(1, 1, 2010)));
+        printHeader("Done born in date");
+
+        printHeader("Born in month:");
+        out.println("Born in month 10: " + group.bornInMonth(10));
+        out.println("Born in month 1: " + group.bornInMonth(1));
+        out.println("Born in month 3: " + group.bornInMonth(3));
+        out.println("Born in month 10 in empty group: " + emptyGroup.bornInMonth(10));
+        printHeader("Done born in month");
+
+
+    }
+
+    private static void addPerson(Group group, Person person) {
+        if (group.addPerson(person))
+            out.println("Person was added: " + person);
+        else
+            out.println("Person wasn't added: " + person);
+
+    }
+
+    private static void printHeader(String header) {
+        out.println("\r\n----------------------------- " + header + " --------------------------------\r\n");
+    }
+
+    private static void printSmallHeader(String header) {
+        out.println("\r\n--- " + header + " ---");
+    }
+
+    private static void printEndSmallHeader() {
+        out.println("----------\r\n");
+    }
+
+    private static void printOldestPersonName(String message, Group group) {
+        Person person = group.oldestPerson();
+        out.println(message + (person == null ? "Group is empty, null was returned." : person.getFirstName() + " " + person.getLastName()));
     }
 }

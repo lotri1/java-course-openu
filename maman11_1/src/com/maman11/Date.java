@@ -1,26 +1,26 @@
 package com.maman11;
 
 public class Date {
+    private static final String DELIMITER = "/";
+
     private int day;
     private int month;
     private int year;
 
     public Date(int day, int month, int year) {
-        if (day < 1 || day > 31 || month < 1 || month > 12 || year < 0 || year > 9999) {
-            this.day = 1;
-            this.month = 1;
-            this.year = 2000;
+        if (!isValidDay(day) || !isValidMonth(month) || !isValidYear(year)) {
+            setDay(1);
+            setMonth(1);
+            setYear(2000);
         } else {
-            this.day = day;
-            this.month = month;
-            this.year = year;
+            setDay(day);
+            setMonth(month);
+            setYear(year);
         }
     }
 
     public Date(Date other) {
-        day = other.day;
-        month = other.month;
-        year = other.year;
+        this(other.day, other.month, other.year);
     }
 
     public boolean equals(Date other) {
@@ -46,24 +46,27 @@ public class Date {
     }
 
     public void setDay(int dayToSet) {
-        if (dayToSet < 1 || dayToSet > 31)
-            day = 1;
-        else
+        if (isValidDay(dayToSet)) {
             day = dayToSet;
+        } else {
+            day = 1;
+        }
     }
 
     public void setMonth(int monthToSet) {
-        if (monthToSet < 1 || monthToSet > 12)
-            month = 1;
-        else
+        if (isValidMonth(monthToSet)) {
             this.month = monthToSet;
+        } else {
+            month = 1;
+        }
     }
 
     public void setYear(int yearToSet) {
-        if (yearToSet < 0 || yearToSet > 9999)
-            year = 2000;
-        else
+        if (isValidYear(yearToSet)) {
             year = yearToSet;
+        } else {
+            year = 2000;
+        }
     }
 
     public boolean after(Date other) {
@@ -91,6 +94,18 @@ public class Date {
 
     @Override
     public String toString() {
-        return day + "/" + month + "/" + year;
+        return day + DELIMITER + month + DELIMITER + year;
+    }
+
+    private boolean isValidDay(int day) {
+        return (day >= 1 && day <= 31);
+    }
+
+    private boolean isValidMonth(int month) {
+        return (month >= 1 && month <= 12);
+    }
+
+    private boolean isValidYear(int year) {
+        return (year >= 0 && year <= 9999);
     }
 }
