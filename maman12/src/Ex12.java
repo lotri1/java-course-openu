@@ -34,14 +34,21 @@ public class Ex12 {
      * Memory complexity: O(1)
      */
     public static int subStrMaxC(String s, char c, int k) {
+        // Count the number occurrences of c in s. This operation is O(n).
         int cCounter = countCharInString(s, c);
 
+        // If c is contained one time or not contained at all in s - we cannot build a substring from this.
+        // Return 0 substring;
         if (cCounter <= 1)
             return 0;
 
+        // We cannot find substrings with k characters if counter is lower than k by 2 or more.
+        // e.g. k = 3, s = cAcAcAc - this string contains only k=2 substring.
+        // In this cases we should change k to the maximum possible k = cCounter - 2.
         if (k > cCounter - 2)
             k = cCounter - 2;
 
+        // The number of substrings is the su
         return ((k + 1) * (2 * cCounter - k - 2)) / 2;
     }
 
