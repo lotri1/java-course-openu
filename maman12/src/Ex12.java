@@ -18,6 +18,18 @@ public class Ex12 {
     }
 
     public static boolean findValTest(int[][] m, int val) {
+        int n = m.length;
+        int row = 0;
+
+        while (row < n && m[row][0] < val) {
+            row++;
+        }
+
+        for (int col = 0; col < n; col++) {
+            if ((row > 0 && m[row - 1][col] == val) || (row < n && m[row][col] == val))
+                return true;
+        }
+
         return false;
     }
 
@@ -121,9 +133,42 @@ public class Ex12 {
         out.println("k: " + k + ", count: " + s + " - " + subStrMaxC(s, c, k));
     }
 
+    private static void printMatrix(int[][] m) {
+        int n = m.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                out.print(m[i][j] + "  ");
+            }
+
+            out.print("\r\n");
+        }
+    }
+
+    private static void printfindValTest(int[][] m, int val) {
+        out.println("val: " + val + ", findValTest: " + findValTest(m, val));
+    }
+
     // Main
 
     public static void main(String[] args) {
+        int m[][] = {
+                {2, 5, 10, 12},
+                {23, 15, 14, 12},
+                {25, 30, 24, 30},
+                {37, 30, 35, 32}};
+
+        printMatrix(m);
+
+        printfindValTest(m, 10);
+        printfindValTest(m, 35);
+        printfindValTest(m, 14);
+        printfindValTest(m, 24);
+
+        printfindValTest(m, 50);
+        printfindValTest(m, 31);
+        printfindValTest(m, 1);
+
         printSubStr("abcbcabcacabcc", 'c');
         printSubStr("", 'c');
         printSubStr(null, 'c');
