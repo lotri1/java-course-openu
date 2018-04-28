@@ -1,8 +1,30 @@
 import static java.lang.System.out;
 
 public class Ex12 {
+    //  Question 1.a
+    //  ------------
+    //      1. Not correct
+    //      2. Correct
+    //      3. Correct
+    //      4. Not correct
+    //      5. Correct
+    //      6. Correct
 
-    // Question 2.a
+    //  Question 1.b
+    //  ------------
+
+    public static boolean findValWhat(int[][] m, int val) {
+        return false;
+    }
+
+    public static boolean findValTest(int[][] m, int val) {
+        return false;
+    }
+
+    //  -----------------------------------------------------
+
+    //  Question 2.a
+    //  ------------
 
     /**
      * Counts the number of substrings that starts and ends with a specific character,
@@ -42,13 +64,25 @@ public class Ex12 {
         if (cCounter <= 1)
             return 0;
 
-        // We cannot find substrings with k characters if counter is lower than k by 2 or more.
+        // We cannot find substrings with k characters if counter is lower than (k + 2).
         // e.g. k = 3, s = cAcAcAc - this string contains only k=2 substring.
         // In this cases we should change k to the maximum possible k = cCounter - 2.
         if (k > cCounter - 2)
             k = cCounter - 2;
 
-        // The number of substrings is the su
+
+        // The number of substrings is the sum of arithmetic progression:
+        //  n = (k+1)
+        //  a1 = 2(cCount-k-1)
+        //
+        // e.g. s = cabcbcabcacabc ==> cCount = 6
+        // k = 0 substr = 5
+        // k = 1 substr = 5 + 4
+        // k = 2 substr = 5 + 4 + 3
+        // k = 3 substr = 5 + 4 + 3 + 2
+        // k = 4 substr = 5 + 4 + 3 + 2 + 1
+        // k > 4 substr = substr for k=4
+
         return ((k + 1) * (2 * cCounter - k - 2)) / 2;
     }
 
@@ -77,6 +111,8 @@ public class Ex12 {
         return cCounter;
     }
 
+    // Helper methods for printing question 2
+
     private static void printSubStr(String s, char c) {
         out.println("count: " + s + " - " + subStrC(s, c));
     }
@@ -84,6 +120,8 @@ public class Ex12 {
     private static void printSubStrMaxC(String s, char c, int k) {
         out.println("k: " + k + ", count: " + s + " - " + subStrMaxC(s, c, k));
     }
+
+    // Main
 
     public static void main(String[] args) {
         printSubStr("abcbcabcacabcc", 'c');
