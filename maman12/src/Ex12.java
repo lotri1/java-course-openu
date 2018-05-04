@@ -4,7 +4,7 @@ public class Ex12 {
     //  Question 1.a
     //  ------------
     //      1. Not correct
-    //      2. Correct
+    //      2. Not correct
     //      3. Correct
     //      4. Not correct
     //      5. Correct
@@ -14,6 +14,20 @@ public class Ex12 {
     //  ------------
 
     public static boolean findValWhat(int[][] m, int val) {
+        int n = m.length;
+        int row = n - 1;
+        int column = 0;
+
+        while (row >= 0 && column < n) {
+            if (m[row][column] == val)
+                return true;
+
+            if (m[row][column] > val)
+                --row;
+            else
+                ++column;
+        }
+
         return false;
     }
 
@@ -136,6 +150,8 @@ public class Ex12 {
     private static void printMatrix(int[][] m) {
         int n = m.length;
 
+        out.print("\r\n");
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 out.print(m[i][j] + "  ");
@@ -143,31 +159,54 @@ public class Ex12 {
 
             out.print("\r\n");
         }
+
+        out.print("\r\n");
     }
 
-    private static void printfindValTest(int[][] m, int val) {
+    private static void printFindValTest(int[][] m, int val) {
         out.println("val: " + val + ", findValTest: " + findValTest(m, val));
+    }
+
+    private static void printFindValWhat(int[][] m, int val) {
+        out.println("val: " + val + ", findValWhat: " + findValWhat(m, val));
     }
 
     // Main
 
     public static void main(String[] args) {
-        int m[][] = {
+        int[][] whatMatrix = {
+                {3, 6, 9, 11},
+                {4, 7, 20, 21},
+                {5, 8, 21, 22},
+                {6, 8, 22, 23}};
+
+        int[][] testMatrix = {
                 {2, 5, 10, 12},
                 {23, 15, 14, 12},
                 {25, 30, 24, 30},
                 {37, 30, 35, 32}};
 
-        printMatrix(m);
+        printMatrix(whatMatrix);
 
-        printfindValTest(m, 10);
-        printfindValTest(m, 35);
-        printfindValTest(m, 14);
-        printfindValTest(m, 24);
+        printFindValWhat(whatMatrix, 11);
+        printFindValWhat(whatMatrix, 3);
+        printFindValWhat(whatMatrix, 23);
+        printFindValWhat(whatMatrix, 7);
 
-        printfindValTest(m, 50);
-        printfindValTest(m, 31);
-        printfindValTest(m, 1);
+        printFindValWhat(whatMatrix, 12);
+        printFindValWhat(whatMatrix, 24);
+        printFindValWhat(whatMatrix, 1);
+
+        printMatrix(testMatrix);
+
+        printFindValTest(testMatrix, 10);
+        printFindValTest(testMatrix, 35);
+        printFindValTest(testMatrix, 14);
+        printFindValTest(testMatrix, 24);
+
+        printFindValTest(testMatrix, 50);
+        printFindValTest(testMatrix, 31);
+        printFindValTest(testMatrix, 1);
 
         printSubStr("abcbcabcacabcc", 'c');
         printSubStr("", 'c');
