@@ -13,37 +13,60 @@ public class Ex12 {
     //  Question 1.b
     //  ------------
 
+    /**
+     * Checks if a value exists in a matrix that corresponds to the what function.
+     * Time complexity: O(n)
+     * Memory complexity: O(1)
+     */
     public static boolean findValWhat(int[][] m, int val) {
         int n = m.length;
-        int row = n - 1;
-        int column = 0;
+        int row = n - 1; //last row
+        int column = 0; //first column
 
+        // Go over the matrix from the bottom left cell to the top right cell.
+        // In each cycle of the loop - decrease the row or increase the column.
+        // In the worst case (the value doesn't exist or the value is in the top right cell), there will be 2n cycles.
         while (row >= 0 && column < n) {
-            if (m[row][column] == val)
+            if (m[row][column] == val) // if this cell contains the value - return true.
                 return true;
 
+            // If the current cell is bigger - decrease the row. Lower row means lower values.
             if (m[row][column] > val)
                 --row;
-            else
+            else // If the current cell is lower - increase the column. Higher column means higher values.
                 ++column;
         }
 
+        // Value wasn't found in the loop
         return false;
     }
 
+    /**
+     * Check if a value exists in a matrix that corresponds to the test function.
+     * Time complexity: O(n)
+     * Memory complexity: O(1)
+     */
     public static boolean findValTest(int[][] m, int val) {
         int n = m.length;
         int row = 0;
 
+        // Go over the first cell of the rows until finding a cell bigger than the value we are looking for.
+        // This operation is performed n times at most.
         while (row < n && m[row][0] < val) {
             row++;
         }
 
+        // Go over 2 rows - the one that we found and one before it.
+        // The value should be found only in these 2 rows according to the matrix structure - each row contains values
+        // lower or equal to all of the cells in the next row.
+        // This loop is performed n times at most.
         for (int col = 0; col < n; col++) {
+            // If the value was found in one of the 2 rows - return true.
             if ((row > 0 && m[row - 1][col] == val) || (row < n && m[row][col] == val))
                 return true;
         }
 
+        // Value wasn't found
         return false;
     }
 
