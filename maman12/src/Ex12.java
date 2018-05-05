@@ -97,6 +97,7 @@ public class Ex12 {
     }
 
     // Question 2.b
+    // ------------
 
     /**
      * Counts the number of substrings that starts and ends with a specific character,
