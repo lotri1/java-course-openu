@@ -45,15 +45,15 @@ public class Ex13 {
     // Question 1.b.1
 
     /**
-     * 
+     * Reverse a number digits
      */
     public static int reverse(int num) {
         int reversedNum = 0;
 
         while (num > 0) {
-            reversedNum *= 10;
-            reversedNum += num % 10;
-            num = num / 10;
+            reversedNum *= 10; //Prepare the place for the next digit by multiplying by 10.
+            reversedNum += num % 10; //Extract the right digit from the number and add it to the reversed number
+            num = num / 10; //Move to the next digit
         }
 
         return reversedNum;
@@ -61,21 +61,29 @@ public class Ex13 {
 
     // Question 1.b.2
 
+    /**
+     * Reverse a number digits - recursive version
+     */
     public static int reverseRec(int num) {
         return reverseRec(num, 0);
     }
 
-    public static int reverseRec(int num, int reversedNum) {
+    private static int reverseRec(int num, int reversedNum) {
         if (num == 0)
             return reversedNum;
 
+        //Make a place for the new digit and add to the reversed number the right digit of num
         reversedNum = reversedNum * 10 + num % 10;
 
+        //Call the recursion to handle the rest of the number
         return reverseRec(num / 10, reversedNum);
     }
 
     // Question 2.a
 
+    /**
+     *
+     */
     public static int spiderman(int n) {
         if (n == 0)
             return 1;
