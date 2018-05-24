@@ -82,35 +82,49 @@ public class Ex13 {
     // Question 2.a
 
     /**
-     *
+     * Calculate the number of options that spiderman can climb on a building with n floors.
+     * Spiderman can climb 1 or 2 floors in each step.
      */
     public static int spiderman(int n) {
-        if (n == 0)
+        if (n == 0) //Spideman is on the roof - count this
             return 1;
 
-        if (n < 0)
+        if (n < 0) //Spideman missed the roof - don't count this
             return 0;
 
+        //In each step of the recursion try 2 options - climb 1 floor, climb 2 floors
+        //This will cover all the combinations to climb
         return spiderman(n - 1) + spiderman(n - 2);
     }
 
     // Question 2.b
 
-    public static int spidermanPhoneBooth20(int n, int currentFloor) {
-        if (currentFloor == n || (currentFloor == 20 && n >= 20))
-            return 1;
-
-        if (currentFloor > n)
-            return 0;
-
-        return spidermanPhoneBooth20(n, currentFloor + 1) + spidermanPhoneBooth20(n, currentFloor + 2);
-    }
-
+    /**
+     * Calculate the number of options that spiderman can climb on a building with n floors.
+     * Spiderman can climb 1 or 2 floors in each step.
+     * If he reaches the phone boot in the 20 floor - he can go from there straight to the roof.
+     */
     public static int spidermanPhoneBooth20(int n) {
         return spidermanPhoneBooth20(n, 0);
     }
 
+    private static int spidermanPhoneBooth20(int n, int currentFloor) {
+        //If he reached the roof (currentFloor == n) or he reached the 20 floor in a building higher than 20 floors.
+        //The check if the building has 20 floors or more, prevents counting paths that exceeds the roof in 19 floors
+        // buildings.
+        if (currentFloor == n || (currentFloor == 20 && n >= 20))
+            return 1;
+
+        //Missed the roof
+        if (currentFloor > n)
+            return 0;
+
+        //In each step of the recursion try 2 options - climb 1 floor, climb 2 floors
+        return spidermanPhoneBooth20(n, currentFloor + 1) + spidermanPhoneBooth20(n, currentFloor + 2);
+    }
+
     // Main
+
     public static void main(String[] args) {
         printweight(5358, 5);
         printweight(41358, 4);
@@ -120,11 +134,15 @@ public class Ex13 {
         printweight(41358, 8);
         printweight(41358, 9);
 
+        out.println("\r\n---------------------------\r\n");
+
         printReverse(1234);
         printReverse(123);
         printReverse(12);
         printReverse(1);
         printReverse(0);
+
+        out.println("\r\n---------------------------\r\n");
 
         printSpiderman(1);
         printSpiderman(2);
@@ -139,6 +157,8 @@ public class Ex13 {
         printSpiderman(19);
         printSpiderman(20);
 
+        out.println("\r\n---------------------------\r\n");
+
         printSpidermanPhoneBooth20(18);
         printSpidermanPhoneBooth20(19);
         printSpidermanPhoneBooth20(20);
@@ -151,13 +171,13 @@ public class Ex13 {
     // Helpers for printing
 
     private static void printweight(int num, int digit) {
-        out.println("weight of " + num + "," + digit + " is: by not recursive: " + weight(num, digit)
+        out.println("weight of (" + num + "," + digit + ") is: by not recursive: " + weight(num, digit)
                 + ", by recursive: " + weightRec(num, digit));
     }
 
     private static void printReverse(int num) {
         out.println(
-                "reverse of " + num + " is: by not recursive: " + reverse(num) + ", by recursive: " + reverseRec(num));
+                "reverse of (" + num + ") is: by not recursive: " + reverse(num) + ", by recursive: " + reverseRec(num));
     }
 
     private static void printSpiderman(int n) {
